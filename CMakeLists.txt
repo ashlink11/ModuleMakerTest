@@ -12,6 +12,9 @@ add_executable(adder ModuleMakerTest.cpp)
 
 # Executable Name: This refers to the specific file generated after compilation, the actual program you run. It can be descriptive, but doesn't necessarily need to directly reflect the entire project name.
 
+set(LLVM_INCLUDE_DIR "/usr/local/opt/llvm/")
+
+
 # do i have any external libraries?
 # //Target Configuration: Use 
 # target_link_libraries(my_executable PRIVATE my_library) 
