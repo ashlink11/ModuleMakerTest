@@ -14,6 +14,13 @@ add_executable(adder ModuleMakerTest.cpp)
 
 set(LLVM_INCLUDE_DIR "/usr/local/opt/llvm/")
 
+# options for building/linking other libs & env vars
+# includePath()
+# target_link_libraries(my_executable PRIVATE my_library) 
+# install(TARGETS my_executable my_library DESTINATION bin)
+# use()
+# include_directories(/usr/local/opt/llvm/include)
+# target_link_libraries(MyExecutable library1 library2)
 
 # do i have any external libraries?
 # //Target Configuration: Use 
