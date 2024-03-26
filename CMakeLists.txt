@@ -1,18 +1,36 @@
+find_package(LLVM REQUIRED CONFIG)
 
-find_package(Clang REQUIRED)
-target_link_libraries(ModuleMakerTest PRIVATE Clang)
+include_directories(${LLVM_INCLUDE_DIRS})
+add_definitions(${LLVM_DEFINITIONS})
 
-project(ModuleMakerTest)
+llvm_map_components_to_libnames(llvm_libs core irreader)
 
+add_executable(MyLLVMProgram main.cpp)
+target_link_libraries(MyLLVMProgram ${llvm_libs})
+
+
+
+########
+# best try at the config before^:
+
+# find_package(Clang REQUIRED)
+# target_link_libraries(ModuleMakerTest PRIVATE Clang)
+
+# project(ModuleMakerTest)
 
 # depending on whether you're building an executable or library:
 add_executable(adder ModuleMakerTest.cpp)
 # or 
-# add_library(my_library source1.cpp source2.cpp)
+## add_library(my_library source1.cpp source2.cpp)
 
 # Executable Name: This refers to the specific file generated after compilation, the actual program you run. It can be descriptive, but doesn't necessarily need to directly reflect the entire project name.
 
-set(LLVM_INCLUDE_DIR "/usr/local/opt/llvm/")
+# set(LLVM_INCLUDE_DIR "/usr/local/opt/llvm/")
+
+
+#######
+
+
 
 # options for building/linking other libs & env vars
 # includePath()
