@@ -1,0 +1,7 @@
+/Users/ash/dev/ModuleMakerTest/CMakeFiles/intrinsics_gen.dir
+/Users/ash/dev/ModuleMakerTest/CMakeFiles/omp_gen.dir
+/Users/ash/dev/ModuleMakerTest/CMakeFiles/acc_gen.dir
+/Users/ash/dev/ModuleMakerTest/CMakeFiles/RISCVTargetParserTableGen.dir
+/Users/ash/dev/ModuleMakerTest/CMakeFiles/ModuleMakerTest.dir
+/Users/ash/dev/ModuleMakerTest/CMakeFiles/edit_cache.dir
+/Users/ash/dev/ModuleMakerTest/CMakeFiles/rebuild_cache.dir
