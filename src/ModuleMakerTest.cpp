@@ -1,17 +1,3 @@
-//===- examples/ModuleMaker/ModuleMaker.cpp - Example project ---*- C++ -*-===//
-//
-// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-//
-//===----------------------------------------------------------------------===//
-//
-// This programs is a simple example that creates an LLVM module "from scratch",
-// emitting it as a bitcode file to standard out.  This is just to show how
-// LLVM projects work and to demonstrate some of the LLVM APIs.
-//
-//===----------------------------------------------------------------------===//
-
 #include "llvm/Bitcode/BitcodeWriter.h" 
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Constants.h"
@@ -24,6 +10,8 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Support/FileSystem.h" // Added for file operations
+#include <fstream>
 
 using namespace llvm;
 
@@ -60,10 +48,39 @@ int main() {
   // Create the return instruction and add it to the basic block
   ReturnInst::Create(Context, Add)->insertInto(BB, BB->end());
 
-  // Output the bitcode file to stdout
-  WriteBitcodeToFile(*M, outs());
+  // Output the bitcode file to stdout but    
+  // this makes gibberish in terminal
+  // WriteBitcodeToFile(*M, outs());
+
+  // write the bitcode to a file instead
+  // std::error_code EC;
+  // raw_fd_ostream OutFile("ModuleMakerTest.bc", EC, sys::fs::open_flags::OF_CREAT | sys::fs::open_flags::OF_WRONLY);
+
+    // Output the bitcode file to a file
+  std::error_code EC;
+  raw_fd_ostream OutFile("ModuleMakerTest.bc", EC, sys::fs::OF_None); // Open the file for writing
+  WriteBitcodeToFile(*M, OutFile); // Write the bitcode to the file
+
+  if (EC) {
+    errs() << "Error writing bitcode to file: " << EC.message() << '\n';
+    return 1;
+  }
 
   // Delete the module and all of its contents.
   delete M;
   return 0;
 }
+
+//===- examples/ModuleMaker/ModuleMaker.cpp - Example project ---*- C++ -*-===//
+//
+// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+//===----------------------------------------------------------------------===//
+//
+// This programs is a simple example that creates an LLVM module "from scratch",
+// emitting it as a bitcode file to standard out.  This is just to show how
+// LLVM projects work and to demonstrate some of the LLVM APIs.
+//
+//===----------------------------------------------------------------------===//
